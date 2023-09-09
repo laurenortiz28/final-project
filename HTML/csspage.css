@@ -1,0 +1,53 @@
+.logo
+{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+body  {
+background-color: tan;
+
+  margin: 0px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 400;
+  color: white;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: darkgoldenrod;
+}
+
+.menu
+{
+  float: left;
+  
+}
+
+li a
+{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: brown;
+
+}
+h1
+{
+  text-align: center;
+}
+
+.citations {
+  display: inline;
+  color: blue;
+  padding: 0px;
+}
