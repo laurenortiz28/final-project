@@ -8,9 +8,10 @@ body
     background-color: tan;
 }
 form {
+
     border: 3px solid #f1f1f1;
     width: 60%;
-    height: 700px;
+    height: 800px;
     margin: auto;
     background: bisque;
     padding: 15px;
@@ -18,9 +19,7 @@ form {
     font-size: 20px;
     text-align: center;
 
-
 }
-
 
 
 
