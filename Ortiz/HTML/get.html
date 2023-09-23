@@ -7,52 +7,22 @@
         {
             (async () =>
             {
-                const rawResponse = await fetch('/Users/laurenortiz/Documents/GitHub/final-project/Ortiz/dataInfo.sql',
+                const rawResponse = await fetch('http://localhost:8000/API/employee/3765',
             {
-                method: 'GET',
-                headers:
+                Method: 'GET',
+                Mode: 'cors',
+                Headers:
                 {
                    'Accept': 'application/json',
-                   'Content-Type': 'application/jason'
+                   'Content-Type': 'application/json'
                 }
             });
             const response = await rawResponse.json();
-
-            employeeList = response.data;
-
-            for (let i=0; i <employeeList.length; i++)
-            {
-                let element = document.createElement('div');
-                element.innerHTML = employeeList[i].employee_id;
-                document.getElementsByTagName('body')[0].appendChild(element);
-            }
-        document.getElementById('content-to-change-on-page-load').innerHTML = "This is a list of the employee IDs";
+        document.getElementById('content-to-change-on-page-load').innerHTML = "This is a list of the employee IDs" +response.employee_id+ "." ;
         })();
-        }
-
-        function callPostEmpInfo()
-        {
-            (async () =>
-            {
-                const rawResponse = await fetch('/this is api need to figure out /',
-                    {
-                        method: 'GET',
-                        headers:
-                            {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                    });
-                const response = await rawResponse.json();
-                document.getElementById('content-to-change-on-post-click').innerHTML = "The response that was posted: " +response.name+".";
-            })();
         }
     </script>
 
-    <br><br>
-    <button onclick="callPostEmpInfo()">Post a request</button>
-    <br>
-    <div id="content-to-change-on-post-click">This text will change once you click the "Post a request" button.</div>
     <br>
     <div id="content-to-change-on-page-load">This content will populate when the page loads.</div>
 

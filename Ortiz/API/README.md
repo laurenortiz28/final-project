@@ -7,7 +7,7 @@ cd into the API folder
 
 cd API
 ```
-pip install -r requirements.txt
+
 ```
 
 Run this app with:

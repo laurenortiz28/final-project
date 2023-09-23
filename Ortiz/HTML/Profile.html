@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="csspage.css">
     <link rel="stylesheet" href="profile.css"">
 </head>
-<body>
+<body onload="callGetFromDirectory()">
 <img src="coffeesp.png" alt="coffee logo" width="400" height="150" class="coffee logo">
 <div>
     <ul>
@@ -20,13 +20,41 @@
 <div class="card">
     <br />
     <img src="barista.jpg" alt="barista" style="width:80%">
-    <h1>Name here</h1>
-    <p class="title">Number: </p>
-    <p class="title">Email: </p>
-    <p class="title">Store Number: </p>
-    <p class="title">Employee ID: </p>
+    <h1 id= "name" ></h1>
+    <p id= "number" class="title">Number: </p>
+    <p id= "email" class="title">Email: </p>
+    <p id= "store_number" class="title">Store Number: </p>
+    <p id= "emp_id" class="title">Employee ID: </p>
+
 
 </div>
+<script>
+
+    function callGetFromDirectory()
+    {
+        (async () =>
+        {
+            const rawResponse = await fetch('http://localhost:8000/API/employee/3765',
+                {
+                    Method: 'GET',
+                    Mode: 'cors',
+                    Headers:
+                        {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                });
+            const response = await rawResponse.json();
+            document.getElementById('name').innerHTML = response.first_name +" "+ response.last_name;
+            document.getElementById('number').innerHTML = "Phone Number: " +response.phone_number;
+            document.getElementById('email').innerHTML = "Email: " +response.email;
+            document.getElementById('store_number').innerHTML = "Cafe Number: " +response.cafe_id;
+            document.getElementById('emp_id').innerHTML = "Employee ID: " +response.employee_id;
+        })();
+    }
+</script>
+
+<br>
 
 </body>
 </html>

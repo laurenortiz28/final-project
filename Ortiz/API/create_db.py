@@ -2,7 +2,11 @@ import sqlite3
 conn = sqlite3.connect('shiftspot.db')
 c=conn.cursor()
 
-c.execute("""CREATE TABLE employee(
+
+c.execute("DROP TABLE employee;")
+
+c.execute("""
+            CREATE TABLE employee(
           employee_id INTEGER PRIMARY KEY,
           first_name TEXT,
           last_name TEXT,
@@ -13,7 +17,7 @@ c.execute("""CREATE TABLE employee(
           job_pos TEXT
 )""")
 many_employees = [
-                    (3765,'Olivia', 'Anderson', 5551234567, 1, 'morning', '..5@spot.com', 'barista'),
+                    (3765,'Olivia', 'Anderson', 5551234567, 1, 'morning', '3765@spot.com', 'barista'),
                     (8921,'Ethan', 'Martinez', 5559876543, 1, 'morning', '..1@spot.com', 'barista'),
                     (4532,'Sophia', 'Reynolds', 5554567890, 1, 'morning', '..2@spot.com', 'barista'),
                     (6189,'Liam', 'Thompson', 5557891234, 1, 'morning', '..9@spot.com', 'barista'),
