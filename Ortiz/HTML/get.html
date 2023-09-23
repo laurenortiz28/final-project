@@ -1,0 +1,60 @@
+<html lang="">
+    <body onload="callGetFromDirectory()">
+    This is my trial to see if I can get names to appear?
+    <script>
+
+        function callGetFromDirectory()
+        {
+            (async () =>
+            {
+                const rawResponse = await fetch('/Users/laurenortiz/Documents/GitHub/final-project/Ortiz/dataInfo.sql',
+            {
+                method: 'GET',
+                headers:
+                {
+                   'Accept': 'application/json',
+                   'Content-Type': 'application/jason'
+                }
+            });
+            const response = await rawResponse.json();
+
+            employeeList = response.data;
+
+            for (let i=0; i <employeeList.length; i++)
+            {
+                let element = document.createElement('div');
+                element.innerHTML = employeeList[i].employee_id;
+                document.getElementsByTagName('body')[0].appendChild(element);
+            }
+        document.getElementById('content-to-change-on-page-load').innerHTML = "This is a list of the employee IDs";
+        })();
+        }
+
+        function callPostEmpInfo()
+        {
+            (async () =>
+            {
+                const rawResponse = await fetch('/this is api need to figure out /',
+                    {
+                        method: 'GET',
+                        headers:
+                            {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                    });
+                const response = await rawResponse.json();
+                document.getElementById('content-to-change-on-post-click').innerHTML = "The response that was posted: " +response.name+".";
+            })();
+        }
+    </script>
+
+    <br><br>
+    <button onclick="callPostEmpInfo()">Post a request</button>
+    <br>
+    <div id="content-to-change-on-post-click">This text will change once you click the "Post a request" button.</div>
+    <br>
+    <div id="content-to-change-on-page-load">This content will populate when the page loads.</div>
+
+</body>
+</html>
