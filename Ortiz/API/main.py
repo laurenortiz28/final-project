@@ -6,9 +6,9 @@ app = FastAPI()
 
 @app.get("/API/employee/{emp_id}")
 async def get_user_id(emp_id):
-    dummy_user_data = Employee()
-    GetEmpinfo(emp_id)
-    return dummy_user_data
+    #dummy_user_data = Employee()
+    return GetEmpinfo(emp_id)
+   # return dummy_user_data
 
 
 @app.get("/")

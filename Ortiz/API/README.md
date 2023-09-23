@@ -20,7 +20,7 @@ It's an API, so you can use Postman or a similar program to hit the endpoints it
 to run the create database python code you will need to open terminal
 ```
 python create_db.py
-python insertdata.py
+
 ```
 then make sure to type in 
 ```
