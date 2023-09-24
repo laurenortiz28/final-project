@@ -4,8 +4,6 @@ CREATE TABLE shifts (
   employee_number int NOT NULL,
   shift_id varchar(45) NOT NULL,
   workday varchar(45) NOT NULL,
-  start_time time NOT NULL,
-  end_time time NOT NULL,
-  available int NOT NULL,
+  available varchar(50) NOT NULL,
   PRIMARY KEY (id)
 );
