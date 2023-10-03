@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "219b44df-497e-4b2b-bfb1-4506b7d5eec2",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29984070"
+	},
+	"item": [
+		{
+			"name": "GetEmpInfo",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
