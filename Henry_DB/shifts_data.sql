@@ -1,24 +1,24 @@
 /*
-In the available column, 1 indicates a filled shift and 0 is an open shift.
+
 */
 INSERT INTO  (id,cafe_id,employee_number,shift_id,workday)
 VALUES 
 (1,1,3765,'morning','monday'),
 (2,1,3765,'morning','tuesday'),
 (3,1,3765,'morning','wednesday'),
-(4,1,3765,'morning','thursday',),
-(5,1,3765,'morning','friday',),
-(6,1,8921,'morning','monday',),
-(7,1,8921,'morning','tuesday',),
-(8,1,8921,'morning','wednesday',),
-(9,1,8921,'morning','thursday',),
-(10,1,8921,'morning','friday',),
+(4,1,3765,'morning','thursday'),
+(5,1,3765,'morning','friday'),
+(6,1,8921,'morning','monday'),
+(7,1,8921,'morning','tuesday'),
+(8,1,8921,'morning','wednesday'),
+(9,1,8921,'morning','thursday'),
+(10,1,8921,'morning','friday'),
 (11,1,4532,'morning','monday'),
 (12,1,4532,'morning','tuesday'),
 (13,1,4532,'morning','wednesday'),
 (14,1,4532,'morning','thursday'),
-(15,1,4532,'morning','monday',),
-(16,1,6189,'morning','monday',),
+(15,1,4532,'morning','monday'),
+(16,1,6189,'morning','monday'),
 (17,1,6189,'morning','tuesday'),
 (18,1,6189,'morning','wednesday',),
 (19,1,6189,'morning','thursday'),
