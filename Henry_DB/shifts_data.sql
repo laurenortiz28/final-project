@@ -1,7 +1,7 @@
 /*
 
 */
-INSERT INTO  (id,cafe_id,employee_number,shift_id,workday)
+INSERT INTO shifts (id,cafe_id,employee_number,shift_id,workday)
 VALUES 
 (1,1,3765,'morning','monday'),
 (2,1,3765,'morning','tuesday'),
