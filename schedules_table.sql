@@ -2,6 +2,7 @@ CREATE TABLE schedules (
   id int NOT NULL,
   employee_id int NOT NULL,
   Cafe_id int NOT NULL,
+  weekday varchar(50),
   shift_id varchar(25) NOT NULL,
   hours_worked int NOT NULL,
   shift_availability varchar(45) NOT NULL,
