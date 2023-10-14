@@ -3,7 +3,7 @@
 <head>
     <title>Profile</title>
     <link rel="stylesheet" href="csspage.css">
-    <link rel="stylesheet" href="profile.css"">
+    <link rel="stylesheet" href="profile.css">
 </head>
 <body onload="callGetFromDirectory()">
 <img src="coffeesp.png" alt="coffee logo" width="400" height="150" class="coffee logo">
@@ -34,7 +34,8 @@
     {
         (async () =>
         {
-            const rawResponse = await fetch('http://localhost:8000/API/employee/3765',
+            var emp_id = sessionStorage.getItem("emp_id");
+            const rawResponse = await fetch('http://localhost:8000/API/employee/'+emp_id,
                 {
                     Method: 'GET',
                     Mode: 'cors',

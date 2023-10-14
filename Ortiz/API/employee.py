@@ -1,3 +1,6 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+
 class Employee:
 
     def __init__(self):
@@ -9,3 +12,9 @@ class Employee:
         self.shift_id = "morning"
         self.email = "2345@spot.com"
         self.job_pos = "barista"
+
+class LogIn(BaseModel):
+
+    employee_id: int
+    password: str
+

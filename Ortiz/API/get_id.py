@@ -1,7 +1,7 @@
 import sqlite3
 from employee import Employee
 
-def GetEmpinfo(emp_id):
+def getEmpinfo(emp_id):
 
     conn = sqlite3.connect('shiftspot.db')
 
@@ -13,7 +13,7 @@ def GetEmpinfo(emp_id):
     if result!=None:
             print(result)
     else:
-         print(f'Employee with ID not found.')
+         print('Employee with ID not found.')
 
     conn.commit()
     conn.close()

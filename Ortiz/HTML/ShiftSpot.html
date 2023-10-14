@@ -5,25 +5,62 @@
   <link rel="stylesheet" href="login.css">
 </head>
 <body>
-<form action="action_page.php" method="post">
   <div class="imgcontainer">
     <img src="Coffee.png" alt="Coffee" width="400" height="200" class="coffee">
   </div>
   <h1> SHIFT SPOT</h1>
   <div class="container">
-    <label for="uname"><b>Employee ID</b></label>
-    <input type="text" placeholder="Enter Employee ID" name="uname" required>
+    <label > <b>Employee ID</b></label>
+    <input id = "emp_id" type="text" placeholder="Enter Employee ID" name="emp_id" required>
     <br/>
     <br />
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label ><b>Password</b></label>
+    <input id = "pswd" type="password" placeholder="Enter Password" name="pswd" required>
   <br />
     <br />
-    <button type="submit">Login</button>
+    <button type="submit" onclick = "callGetLogIn()" >Login</button>
 
   </div>
+<script>
 
-</form>
+  function callGetLogIn()
+  {
+    emp_id = document.getElementById('emp_id').value;
+    pswd = document.getElementById('pswd').value;
+    sessionStorage.removeItem('emp_id');
+    (async () =>
+    {
+      const rawResponse = await fetch('http://localhost:8000/API/employee/log_in',
+              {
+                method: 'POST',
+                mode: 'cors',
+                headers:
+                        {
+                          'Accept': 'application/json',
+                          'Content-Type': 'application/json'
+                        },
+                body: JSON.stringify(
+                        {
+                          "employee_id": emp_id,
+                          "password":pswd
+                        }
+                )
+              });
+      const response = await rawResponse.json();
+      if (response == true)
+      {sessionStorage.setItem("emp_id", emp_id);
+      window.location.replace("Profile.html");}
+      else
+      {
+        alert("Incorrect Employee ID or Password!")
+      }
+
+    })();
+  }
+</script>
+
+<br>
+
 
 
 </body>
