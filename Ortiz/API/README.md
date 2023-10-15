@@ -6,6 +6,8 @@ Use this command to install your dependencies from the requirements.txt:
 cd into the API folder 
 
 cd API
+
+pip install -r requirements.txt
 ```
 
 ```

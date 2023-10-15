@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="csspage.css">
     <link rel="stylesheet" href="STable.css">
 </head>
-<body>
+<body onload="callGetFromShift()">
 <img src="coffeesp.png" alt="coffee logo" width="400" height="150" class="coffee logo">
 <div>
     <ul>
@@ -19,89 +19,137 @@
     <H1>Your Schedule</H1>
     <table>
         <tr>
-            <th>
-            <th>5:00am-12:00pm
-            <th>12:00pm-6:00pm
-
+            <th>Day of Week</th>
+            <th>Shift</th>
         </tr>
         <tr>
-            <th>MONDAY
-            <th>Working
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
+            <td>MONDAY </td>
+            <td class= "title">
+                <div id= "shift_id_mon"></div>
+                <div>
+                    <button type="submit">Offer Shift</button>
+                </div>
+            </td>
         <tr>
         <tr>
-            <th>TUESDAY
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-
+        <td> TUESDAY </td>
+        <td class= "title">
+            <div id= "shift_id_tues"></div>
+            <div>
+                <button type="submit">Offer Shift</button>
+            </div>
+        </td>
         </tr>
         <tr>
-            <th>WEDNESDAY
-            <th>Working
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
+            <td>WEDNESDAY </td>
+            <td class= "title">
+                <div id= "shift_id_wed"></div>
+                <div>
+                    <button type="submit">Offer Shift</button>
+                </div>
+            </td>
         </tr>
         <tr>
-            <th>THURSDAY
-            <th>Working
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
+            <td>THURSDAY </td>
+            <td class= "title">
+                <div id= "shift_id_thurs"></div>
+                <div>
+                    <button type="submit">Offer Shift</button>
+                </div>
+            </td>
         </tr>
         <tr>
-            <th>FRIDAY
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
+            <td>FRIDAY</td>
+            <td class= "title">
+                <div id= "shift_id_fri"></div>
+                <div>
+                    <button type="submit">Offer Shift</button>
+                </div>
+            </td>
         </tr>
         <tr>
-            <th>SATURDAY
-            <td>Working
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-            <th>Off
-            <br />
-            <button type="submit">Offer Shift</button>
-            <BR>
-        </tr>
+        <td>SATURDAY</td>
+        <td class= "title">
+            <div id= "shift_id_sat"></div>
+            <div>
+                <button type="submit">Offer Shift</button>
+            </div>
+        </td>
         <tr>
-        <th>SUNDAY
-        <th>Off
-        <br />
-        <button type="submit">Offer Shift</button>
-        <BR>
-        <th >Off
-        <br />
-        <button type="submit">Offer Shift</button>
-        <BR>
-        </tr>
+        <td>SUNDAY</td>
+        <td class= "title">
+            <div id= "shift_id_sun"></div>
+            <div>
+                <button type="submit">Offer Shift</button>
+            </div>
+        </td>
     </table>
+<script>
+    function callGetFromShift()
+    {
+        (async () =>
+        {
+            var emp_id = sessionStorage.getItem("emp_id");
+            const rawResponse = await fetch('http://localhost:8000/API/shift/'+emp_id,
+                {
+                    Method: 'GET',
+                    Mode: 'cors',
+                    Headers:
+                        {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                });
+            const response = await rawResponse.json();
+            document.getElementById('shift_id_mon').innerHTML = response[0].shift_id;
+            document.getElementById('shift_id_tues').innerHTML = response[1].shift_id;
+            document.getElementById('shift_id_wed').innerHTML = response[2].shift_id;
+            document.getElementById('shift_id_thurs').innerHTML = response[3].shift_id;
+            document.getElementById('shift_id_fri').innerHTML = response[4].shift_id;
+            document.getElementById('shift_id_sat').innerHTML = response[5].shift_id;
+            document.getElementById('shift_id_sun').innerHTML = response[6].shift_id;
+        })();
+    }
+
+        function callPostShift()
+        {
+            emp_id = document.getElementById('emp_id').value;
+            pswd = document.getElementById('pswd').value;
+            sessionStorage.removeItem('emp_id');
+            (async () =>
+        {
+            const rawResponse = await fetch('http://localhost:8000/API/employee/log_in',
+        {
+            method: 'POST',
+            mode: 'cors',
+            headers:
+        {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify(
+        {
+            "employee_id": emp_id,
+            "password":pswd
+        }
+            )
+        });
+            const response = await rawResponse.json();
+            if (response == true)
+        {sessionStorage.setItem("emp_id", emp_id);
+            window.location.replace("Profile.html");}
+            else
+        {
+            alert("Incorrect Employee ID or Password!")
+        }
+
+        })();
+        }
+
+</script>
+
+<br>
+
+
 </body>
 </html>
