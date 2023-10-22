@@ -27,7 +27,7 @@
             <td class= "title">
                 <div id= "shift_id_mon"></div>
                 <div>
-                    <button type="submit">Offer Shift</button>
+                    <button type="submit" onclick = "sendShift('monday')">Offer Shift</button>
                 </div>
             </td>
         <tr>
@@ -36,7 +36,7 @@
         <td class= "title">
             <div id= "shift_id_tues"></div>
             <div>
-                <button type="submit">Offer Shift</button>
+                <button type="submit" onclick = "sendShift('tuesday')">Offer Shift</button>
             </div>
         </td>
         </tr>
@@ -45,7 +45,7 @@
             <td class= "title">
                 <div id= "shift_id_wed"></div>
                 <div>
-                    <button type="submit">Offer Shift</button>
+                    <button type="submit" onclick = "sendShift('wednesday')">Offer Shift</button>
                 </div>
             </td>
         </tr>
@@ -54,7 +54,7 @@
             <td class= "title">
                 <div id= "shift_id_thurs"></div>
                 <div>
-                    <button type="submit">Offer Shift</button>
+                    <button type="submit" onclick = "sendShift('thursday')">Offer Shift</button>
                 </div>
             </td>
         </tr>
@@ -63,7 +63,7 @@
             <td class= "title">
                 <div id= "shift_id_fri"></div>
                 <div>
-                    <button type="submit">Offer Shift</button>
+                    <button type="submit" onclick = "sendShift('friday')">Offer Shift</button>
                 </div>
             </td>
         </tr>
@@ -72,7 +72,7 @@
         <td class= "title">
             <div id= "shift_id_sat"></div>
             <div>
-                <button type="submit">Offer Shift</button>
+                <button type="submit" onclick = "sendShift('saturday')">Offer Shift</button>
             </div>
         </td>
         <tr>
@@ -80,7 +80,7 @@
         <td class= "title">
             <div id= "shift_id_sun"></div>
             <div>
-                <button type="submit">Offer Shift</button>
+                <button type="submit" onclick = "sendShift('sunday')">Offer Shift</button>
             </div>
         </td>
     </table>
@@ -108,42 +108,71 @@
             document.getElementById('shift_id_fri').innerHTML = response[4].shift_id;
             document.getElementById('shift_id_sat').innerHTML = response[5].shift_id;
             document.getElementById('shift_id_sun').innerHTML = response[6].shift_id;
+
+            sessionStorage.setItem("shift_mon",  JSON.stringify(response[0]));
+            sessionStorage.setItem("shift_tues",  JSON.stringify(response[1]));
+            sessionStorage.setItem("shift_wed",  JSON.stringify(response[2]));
+            sessionStorage.setItem("shift_thurs",  JSON.stringify(response[3]));
+            sessionStorage.setItem("shift_fri",  JSON.stringify(response[4]));
+            sessionStorage.setItem("shift_sat",  JSON.stringify(response[5]));
+            sessionStorage.setItem("shift_sun",  JSON.stringify(response[6]));
+
         })();
     }
+        function sendShift(day_of_week) {
+            mondayShift = JSON.parse(sessionStorage.getItem("shift_mon"));
+            tuesdayShift = JSON.parse(sessionStorage.getItem("shift_tues"));
+            wednesdayShift = JSON.parse(sessionStorage.getItem("shift_wed"));
+            thursdayShift = JSON.parse(sessionStorage.getItem("shift_thurs"));
+            fridayShift = JSON.parse(sessionStorage.getItem("shift_fri"));
+            saturdayShift = JSON.parse(sessionStorage.getItem("shift_sat"));
+            sundayShift = JSON.parse(sessionStorage.getItem("shift_sun"));
 
-        function callPostShift()
-        {
-            emp_id = document.getElementById('emp_id').value;
-            pswd = document.getElementById('pswd').value;
-            sessionStorage.removeItem('emp_id');
-            (async () =>
-        {
-            const rawResponse = await fetch('http://localhost:8000/API/employee/log_in',
-        {
-            method: 'POST',
-            mode: 'cors',
-            headers:
-        {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-            body: JSON.stringify(
-        {
-            "employee_id": emp_id,
-            "password":pswd
-        }
-            )
-        });
-            const response = await rawResponse.json();
-            if (response == true)
-        {sessionStorage.setItem("emp_id", emp_id);
-            window.location.replace("Profile.html");}
-            else
-        {
-            alert("Incorrect Employee ID or Password!")
-        }
+            var shift = mondayShift;
 
-        })();
+            if (day_of_week == "monday") {
+                shift = mondayShift;
+            }
+            else if (day_of_week == "tuesday") {
+                shift = tuesdayShift;
+            }
+            else if (day_of_week == "wednesday") {
+                shift = wednesdayShift;
+            }
+            else if (day_of_week == "thursday") {
+                shift = thursdayShift;
+            }
+            else if (day_of_week == "friday") {
+                shift = fridayShift;
+            }
+            else if (day_of_week == "saturday") {
+                shift = saturdayShift;
+            }
+            else {
+                shift = sundayShift;
+            }
+                (async () => {
+                    const rawResponse = await fetch('http://localhost:8000/API/shift/post_shift',
+                        {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers:
+                                {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                            body: JSON.stringify(
+                                {
+                                    "sft_id": shift.shift_id,
+                                    "cafe_id": shift.cafe_id,
+                                    "employee_id": shift.employee_id,
+                                    "shift_id": shift.shift_id,
+                                    "day_of_week": shift.day_of_week
+                                }
+                            )
+                        });
+                    const response = await rawResponse.json();
+                })();
         }
 
 </script>
