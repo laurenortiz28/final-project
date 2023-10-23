@@ -154,4 +154,5 @@ many_shift = [
              ]
 c.executemany("INSERT INTO shift VALUES (?,?,?,?,?,?)", many_shift)
 conn.commit()
+
 conn.close()

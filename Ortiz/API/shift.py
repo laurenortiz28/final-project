@@ -17,3 +17,4 @@ class PostShift(BaseModel):
     employee_id = 3765
     shift_id = "morning"
     day_of_week = "monday"
+    available = "available"

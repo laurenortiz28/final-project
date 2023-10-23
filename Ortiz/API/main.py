@@ -35,7 +35,7 @@ async def getShifts(emp_id):
 
 @app.post("/API/shift/post_shift")
 async def post_Shift(shift: PostShift):
-    return getpstedShift(shift.sft_id)
+    return getpstedShift(shift.sft_id, shift.available)
 
 @app.get("/API/shifts/{available}")
 async def get_avb_Shifts(available):

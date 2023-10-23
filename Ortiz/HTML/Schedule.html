@@ -163,15 +163,17 @@
                                 },
                             body: JSON.stringify(
                                 {
-                                    "sft_id": shift.shift_id,
+                                    "sft_id": shift.sft_id,
                                     "cafe_id": shift.cafe_id,
                                     "employee_id": shift.employee_id,
                                     "shift_id": shift.shift_id,
-                                    "day_of_week": shift.day_of_week
+                                    "day_of_week": shift.day_of_week,
+                                    "available": "available"
                                 }
                             )
                         });
                     const response = await rawResponse.json();
+                    alert ("Shift has been offered up on Available shift page")
                 })();
         }
 

@@ -51,3 +51,21 @@ h1
   color: blue;
   padding: 0;
 }
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  height: 150px;
+  margin: 5px;
+  text-align:center;
+  background-color: black;}
+
+.schedule-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  height: 150px;
+  margin: 5px;
+  float: left;
+  padding: 20px;
+  text-align:center;
+  background-color: black;}
