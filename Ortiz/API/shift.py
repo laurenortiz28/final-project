@@ -9,6 +9,8 @@ class Shift():
         self.employee_id = 3765
         self.shift_id = "morning"
         self.day_of_week = "monday"
+        self.available = "available"
+        self.rqt_emp_id = None
 
 
 class PostShift(BaseModel):
@@ -18,3 +20,4 @@ class PostShift(BaseModel):
     shift_id = "morning"
     day_of_week = "monday"
     available = "available"
+    rqt_emp_id = 3600

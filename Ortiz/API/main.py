@@ -6,6 +6,7 @@ from LogIn import getLogIn
 from shift import Shift, PostShift
 from get_shifts import getShift
 from get_avbshifts import getavbShifts
+from get_appshifts import getappShifts
 from postShift import getpstedShift
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -35,11 +36,13 @@ async def getShifts(emp_id):
 
 @app.post("/API/shift/post_shift")
 async def post_Shift(shift: PostShift):
-    return getpstedShift(shift.sft_id, shift.available)
+    return getpstedShift(shift.sft_id, shift.available, shift.rqt_emp_id)
 
 @app.get("/API/shifts/{available}")
 async def get_avb_Shifts(available):
     return getavbShifts(available)
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000)

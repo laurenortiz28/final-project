@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Profile</title>
+    <title>PickUp</title>
     <link rel="stylesheet" href="csspage.css">
+    <link rel="stylesheet" href="STable.css">
 </head>
-<body>
+<body onload="callGetFromApprove()">
 <img src="coffeesp.png" alt="coffee logo" width="400" height="150" class="coffee logo">
 <div>
     <ul>
@@ -15,7 +16,67 @@
         <li class="menu"><a href="Manager.html">Manager</a></li>
     </ul>
 </div>
-
-
+<H1> Manager approval page </H1>
+<div id="main">
+</div>
+<script>
+    var response = [];
+    function callGetFromApprove()
+    {
+        (async () =>
+        {
+            const rawResponse = await fetch('http://localhost:8000/API/shifts/approve',
+                {
+                    Method: 'GET',
+                    Mode: 'cors',
+                    Headers:
+                        {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                });
+            response = await rawResponse.json();
+            for (let i = 0; i < response.length; i++) {
+                var div = document.createElement("div");
+                div.style.display = "inline-block";
+                div.innerHTML= "<div class=\"schedule-card\">\n" +
+                    "            <br />\n" +
+                    "            <div id= \"cafe_id\" class=\"title\">Store number: "+ response[i].cafe_id+"</div>\n" +
+                    "            <div id= \"day_of_week\" class=\"title\">Day of Week: " + response[i].day_of_week+" </div>\n" +
+                    "            <div id= \"shift_id\" class=\"title\">Shift Time: " + response[i].shift_id+" </div>\n" +
+                    "            <button type=\"submit\" onclick = \"sendShiftEmp("+i+")\">Approve Shift</button>\n" +
+                    "        </div> <br>";
+                document.getElementById("main").appendChild(div);
+            }})();
+    }
+    function sendShiftEmp(i)
+    {
+        (async () => {
+            const rawResponse = await fetch('http://localhost:8000/API/shift/post_shift',
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers:
+                        {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                    body: JSON.stringify(
+                        {
+                            "sft_id": response[i].sft_id,
+                            "cafe_id": response[i].cafe_id,
+                            "employee_id": response[i].rqt_emp_id,
+                            "shift_id": response[i].shift_id,
+                            "day_of_week": response[i].day_of_week,
+                            "available": "not available",
+                            "rqt_emp_id": 0
+                        }
+                    )
+                });
+            const responses = await rawResponse.json();
+            alert ("Sent to employee")
+        })();
+    }
+</script>
 </body>
 </html>

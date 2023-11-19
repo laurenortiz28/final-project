@@ -20,11 +20,11 @@
 <div id="main">
 </div>
 <script>
+    var response = [];
     function callGetFromAvb()
     {
         (async () =>
         {
-            var emp_id = sessionStorage.getItem("available");
             const rawResponse = await fetch('http://localhost:8000/API/shifts/available',
                 {
                     Method: 'GET',
@@ -35,7 +35,7 @@
                             'Content-Type': 'application/json'
                         }
                 });
-            const response = await rawResponse.json();
+            response = await rawResponse.json();
             for (let i = 0; i < response.length; i++) {
                 var div = document.createElement("div");
                 div.style.display = "inline-block";
@@ -44,14 +44,39 @@
                     "            <div id= \"cafe_id\" class=\"title\">Store number: "+ response[i].cafe_id+"</div>\n" +
                     "            <div id= \"day_of_week\" class=\"title\">Day of Week: " + response[i].day_of_week+" </div>\n" +
                     "            <div id= \"shift_id\" class=\"title\">Shift Time: " + response[i].shift_id+" </div>\n" +
-                    "            <button type=\"submit\" onclick = \"sendShiftManager()\">Accept Shift</button>\n" +
+                    "            <button type=\"submit\" onclick = \"sendShiftManager("+i+")\">Accept Shift</button>\n" +
                     "        </div> <br>";
                 document.getElementById("main").appendChild(div);
             }})();
     }
-    function sendShiftManager()
+    function sendShiftManager(i)
     {
-        alert ("Request sent to manager")
+        var emp_id = sessionStorage.getItem("emp_id");
+        (async () => {
+            const rawResponse = await fetch('http://localhost:8000/API/shift/post_shift',
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers:
+                        {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                    body: JSON.stringify(
+                        {
+                            "sft_id": response[i].sft_id,
+                            "cafe_id": response[i].cafe_id,
+                            "employee_id": response[i].employee_id,
+                            "shift_id": response[i].shift_id,
+                            "day_of_week": response[i].day_of_week,
+                            "available": "approve",
+                            "rqt_emp_id": emp_id
+                        }
+                    )
+                });
+            const responses = await rawResponse.json();
+            alert ("Request sent to manager")
+        })();
     }
 </script>
 </body>

@@ -1,11 +1,11 @@
 import sqlite3
 from shift import Shift
 
-def getavbShifts(available):
+def getappShifts(approve):
 
     conn = sqlite3.connect('shiftspot.db')
 
-    cursor = conn.execute( 'SELECT sft_id, cafe_id, employee_id, shift_id, day_of_week, available, rqt_emp_id FROM shift WHERE available = ?',(available,))
+    cursor = conn.execute( 'SELECT sft_id, cafe_id, employee_id, shift_id, day_of_week, available, rqt_emp_id FROM shift WHERE available = ?',(approve,))
     result = cursor.fetchall()
 
 
