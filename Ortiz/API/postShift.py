@@ -2,14 +2,14 @@ import sqlite3
 from shift import Shift
 import traceback
 
-def getpstedShift(sft_id, available, rqt_emp_id):
+def getpstedShift(sft_id,shift_id,available,rqt_emp_id):
 
     conn = sqlite3.connect('shiftspot.db')
 
     try:
-        sql = "UPDATE shift SET available = ?, rqt_emp_id = ? WHERE sft_id = ? "
+        sql = "UPDATE shift SET available = ?, rqt_emp_id = ?, shift_id = ? WHERE sft_id = ? "
         cursor = conn.cursor()
-        cursor.execute(sql, (available, rqt_emp_id, sft_id))
+        cursor.execute(sql, (available, rqt_emp_id, shift_id, sft_id))
         conn.commit()
         return True
     except:
