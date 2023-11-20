@@ -50,9 +50,8 @@
             }})();
     }
     function sendShiftEmp(i) {
-
         nullOutShift(i);
-       // assignNewShift(rqt_emp_id, day_of_week);
+       getNewShift(i);
 
     }
     function nullOutShift(i)
@@ -80,41 +79,64 @@
                     )
                 });
             await rawResponse.json();
-            alert ("Sent to employee")
         })();
     }
-    function assignNewShift(rqt_emp_id, day_of_week) {
-        mondayShift = JSON.parse(sessionStorage.getItem("shift_mon"));
-        tuesdayShift = JSON.parse(sessionStorage.getItem("shift_tues"));
-        wednesdayShift = JSON.parse(sessionStorage.getItem("shift_wed"));
-        thursdayShift = JSON.parse(sessionStorage.getItem("shift_thurs"));
-        fridayShift = JSON.parse(sessionStorage.getItem("shift_fri"));
-        saturdayShift = JSON.parse(sessionStorage.getItem("shift_sat"));
-        sundayShift = JSON.parse(sessionStorage.getItem("shift_sun"));
 
-        var shift = mondayShift;
+    function getNewShift(i)
 
-        if (day_of_week == "monday") {
-            shift = mondayShift;
-        }
-        else if (day_of_week == "tuesday") {
-            shift = tuesdayShift;
-        }
-        else if (day_of_week == "wednesday") {
-            shift = wednesdayShift;
-        }
-        else if (day_of_week == "thursday") {
-            shift = thursdayShift;
-        }
-        else if (day_of_week == "friday") {
-            shift = fridayShift;
-        }
-        else if (day_of_week == "saturday") {
-            shift = saturdayShift;
-        }
-        else {
-            shift = sundayShift;
-        }
+    {
+        (async () =>
+        {
+            const rawResponse = await fetch('http://localhost:8000/API/shift/'+response[i].rqt_emp_id,
+                {
+                    Method: 'GET',
+                    Mode: 'cors',
+                    Headers:
+                        {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                });
+            const shiftAcceptorShifts = await rawResponse.json();
+            mondayShift = JSON.parse(sessionStorage.getItem("shift_mon"));
+            tuesdayShift = JSON.parse(sessionStorage.getItem("shift_tues"));
+            wednesdayShift = JSON.parse(sessionStorage.getItem("shift_wed"));
+            thursdayShift = JSON.parse(sessionStorage.getItem("shift_thurs"));
+            fridayShift = JSON.parse(sessionStorage.getItem("shift_fri"));
+            saturdayShift = JSON.parse(sessionStorage.getItem("shift_sat"));
+            sundayShift = JSON.parse(sessionStorage.getItem("shift_sun"));
+            var shift = mondayShift;
+
+            if (response[i].day_of_week == "monday") {
+                shift = mondayShift;
+            }
+            else if (response[i].day_of_week == "tuesday") {
+                shift = tuesdayShift;
+            }
+            else if (response[i].day_of_week == "wednesday") {
+                shift = wednesdayShift;
+            }
+            else if (response[i].day_of_week == "thursday") {
+                shift = thursdayShift;
+            }
+            else if (response[i].day_of_week == "friday") {
+                shift = fridayShift;
+            }
+            else if (response[i].day_of_week == "saturday") {
+                shift = saturdayShift;
+            }
+            else {
+                shift = sundayShift;
+            };
+
+
+
+            //Call another function that will make a POST to update that user's shift:
+            assignShiftToAcceptor(i, shift);
+        })();
+    }
+    function assignShiftToAcceptor(i, shift) {
+        //var shift = getNewShift(i);
         (async () => {
             const rawResponse = await fetch('http://localhost:8000/API/shift/post_shift',
                 {
@@ -128,17 +150,17 @@
                     body: JSON.stringify(
                         {
                             "sft_id": shift.sft_id,
-                            "cafe_id": shift.cafe_id,
-                            "employee_id": shift.employee_id,
-                            "shift_id": shift.shift_id,
-                            "day_of_week": shift.day_of_week,
-                            "available": "available"
+                            "cafe_id": response[i].cafe_id,
+                            "employee_id": response[i].rqt_emp_id,
+                            "shift_id": response[i].shift_id,
+                            "day_of_week": response[i].day_of_week,
+                            "available": "not available",
+                            "rqt_emp_id": 0
                         }
                     )
-                });
-            const response = await rawResponse.json();
-            alert ("Shift has been offered up on Available shift page")
-        })();
+                })
+            alert ("Shift successfully approved.");
+        }) ();
     }
 </script>
 </body>
