@@ -51,7 +51,6 @@
     }
     function sendShiftManager(i) {
         var emp_id = sessionStorage.getItem("emp_id");
-        if (response[i].shift_id == "off") {
             (async () => {
                 const rawResponse = await fetch('http://localhost:8000/API/shift/post_shift',
                     {
@@ -78,11 +77,6 @@
                 alert("Request sent to manager")
                 location.reload(true);
             })();
-        }
-        else
-        {
-            alert("You are already working that day.")
-        }
     }
 </script>
 </body>
