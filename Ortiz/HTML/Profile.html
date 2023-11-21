@@ -25,6 +25,7 @@
     <p id= "email" class="title">Email: </p>
     <p id= "store_number" class="title">Store Number: </p>
     <p id= "emp_id" class="title">Employee ID: </p>
+    <p id= "job_pos" class="title">Title: </p>
 
 
 </div>
@@ -51,6 +52,8 @@
             document.getElementById('email').innerHTML = "Email: " +response.email;
             document.getElementById('store_number').innerHTML = "Cafe Number: " +response.cafe_id;
             document.getElementById('emp_id').innerHTML = "Employee ID: " +response.employee_id;
+            document.getElementById('job_pos').innerHTML = "Title: " +response.job_pos;
+            sessionStorage.setItem("job_pos",response.job_pos);
         })();
     }
 </script>

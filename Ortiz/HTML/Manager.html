@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="csspage.css">
     <link rel="stylesheet" href="STable.css">
 </head>
-<body onload="callGetFromApprove()">
+<body onload="callGetFromApprove(); doSomething()">
 <img src="coffeesp.png" alt="coffee logo" width="400" height="150" class="coffee logo">
 <div>
     <ul>
@@ -20,6 +20,17 @@
 <div id="main">
 </div>
 <script>
+
+    function doSomething() {
+        var job_pos = sessionStorage.getItem("job_pos");
+        if (job_pos == "barista")
+        {
+            alert("Access denied");
+            window.location.replace("Profile.html");
+        }
+
+
+    }
     var response = [];
     function callGetFromApprove()
     {
@@ -160,6 +171,7 @@
                     )
                 })
             alert ("Shift successfully approved.");
+            location.reload(true);
         }) ();
     }
 </script>

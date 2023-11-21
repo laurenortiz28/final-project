@@ -49,34 +49,40 @@
                 document.getElementById("main").appendChild(div);
             }})();
     }
-    function sendShiftManager(i)
-    {
+    function sendShiftManager(i) {
         var emp_id = sessionStorage.getItem("emp_id");
-        (async () => {
-            const rawResponse = await fetch('http://localhost:8000/API/shift/post_shift',
-                {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers:
-                        {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                    body: JSON.stringify(
-                        {
-                            "sft_id": response[i].sft_id,
-                            "cafe_id": response[i].cafe_id,
-                            "employee_id": response[i].employee_id,
-                            "shift_id": response[i].shift_id,
-                            "day_of_week": response[i].day_of_week,
-                            "available": "approve",
-                            "rqt_emp_id": emp_id
-                        }
-                    )
-                });
-            const responses = await rawResponse.json();
-            alert ("Request sent to manager")
-        })();
+        if (response[i].shift_id == "off") {
+            (async () => {
+                const rawResponse = await fetch('http://localhost:8000/API/shift/post_shift',
+                    {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers:
+                            {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                        body: JSON.stringify(
+                            {
+                                "sft_id": response[i].sft_id,
+                                "cafe_id": response[i].cafe_id,
+                                "employee_id": response[i].employee_id,
+                                "shift_id": response[i].shift_id,
+                                "day_of_week": response[i].day_of_week,
+                                "available": "approve",
+                                "rqt_emp_id": emp_id
+                            }
+                        )
+                    });
+                const responses = await rawResponse.json();
+                alert("Request sent to manager")
+                location.reload(true);
+            })();
+        }
+        else
+        {
+            alert("You are already working that day.")
+        }
     }
 </script>
 </body>
